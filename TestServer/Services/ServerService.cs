@@ -10,12 +10,17 @@ namespace TestServer.Services
     {
         private readonly IListener _listener;
         private readonly IPublisher _publisher;
+        private readonly IProtocolReader _protocolReader;
 
         public ServerService()
         {
             IClientManager clientManager = new ClientManagerService();
             _listener = new ListenerService(clientManager);
             _publisher = new PublisherService(clientManager);
+            IProtocolInterpreter protocolInterpreter = new ProtocolInterpreterService(clientManager);
+            IProtocolParser protocolParser = new ProtocolParserService();
+            IProtocolOrchestrator protocolOrchestrator = new ProtocolOrchestratorService(protocolParser, protocolInterpreter);
+            _protocolReader = new ProtocolReaderService(protocolOrchestrator);
         }
 
         public IPEndPoint GetLocalEndpoint()
@@ -49,6 +54,8 @@ namespace TestServer.Services
             while (true)
             {
                 var client = _listener.WaitForClientToConnect(serverSocket);
+
+                _protocolReader.ReadAllBytes(client);
 
                 Task.Run(() => { _publisher.PublishEventToAll(); });
             }

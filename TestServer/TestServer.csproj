@@ -43,17 +43,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Content.cs" />
-    <Compile Include="Header.cs" />
+    <Compile Include="Interfaces\IProtocolInterpreter.cs" />
+    <Compile Include="Interfaces\IProtocolParser.cs" />
+    <Compile Include="Interfaces\IProtocolOrchestrator.cs" />
+    <Compile Include="Models\Content.cs" />
+    <Compile Include="Models\Header.cs" />
     <Compile Include="Interfaces\IClientManager.cs" />
     <Compile Include="Interfaces\IListener.cs" />
     <Compile Include="Interfaces\IPublisher.cs" />
     <Compile Include="Interfaces\IServer.cs" />
-    <Compile Include="Message.cs" />
+    <Compile Include="Models\Message.cs" />
+    <Compile Include="Models\SocketStateHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ClientManagerService.cs" />
+    <Compile Include="Interfaces\IProtocolReader.cs" />
     <Compile Include="Services\ListenerService.cs" />
+    <Compile Include="Services\ProtocolInterpreterService.cs" />
+    <Compile Include="Services\ProtocolParserService.cs" />
+    <Compile Include="Services\ProtocolOrchestratorService.cs" />
+    <Compile Include="Services\ProtocolReaderService.cs" />
     <Compile Include="Services\PublisherService.cs" />
     <Compile Include="Services\ServerService.cs" />
   </ItemGroup>

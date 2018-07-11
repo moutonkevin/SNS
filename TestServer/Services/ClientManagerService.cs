@@ -12,6 +12,8 @@ namespace TestServer.Services
 
         public void AddClient(TcpClient client)
         {
+            Console.WriteLine($" >> Client {client.GetHashCode()} has been added");
+
             _tcpClients.Add(client);
         }
 
