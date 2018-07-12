@@ -12,7 +12,6 @@ namespace Client
         {
             Bind<IListener>().To<ListenerService>();
             Bind<IEndpointResolver>().To<EndpointResolver>();
-            Bind<IOperation>().To<OperationService>();
             Bind<IProtocolReader>().To<ProtocolReaderService>();
             Bind<IProtocolSender>().To<ProtocolSenderService>();
         }

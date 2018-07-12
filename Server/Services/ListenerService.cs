@@ -14,15 +14,15 @@ namespace Server.Services
             _clientManager = clientManager;
         }
 
-        public TcpClient WaitForClientToConnect(TcpListener listener)
+        public Socket WaitForClientToConnect(TcpListener listener)
         {
-            var clientSocket = listener.AcceptTcpClient();
+            var socket = listener.AcceptSocket();
 
-            _clientManager.AddClient(clientSocket);
+            _clientManager.AddClient(socket);
 
             Console.WriteLine(" >> Client connection received");
 
-            return clientSocket;
+            return socket;
         }
     }
 }

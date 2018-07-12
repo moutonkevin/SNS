@@ -10,23 +10,35 @@ namespace Shared.Services
 {
     public class ProtocolSenderService : IProtocolSender
     {
+        private readonly IEndpointResolver _endpointResolver;
+
+
         private readonly ManualResetEvent _isConnectionMade = new ManualResetEvent(false);
         private readonly ManualResetEvent _isSendOver = new ManualResetEvent(false);
 
-        public bool Connect(Socket serverSocket, IPEndPoint endpoint)
+        public ProtocolSenderService(IEndpointResolver endpointResolver)
         {
+            _endpointResolver = endpointResolver;
+        }
+
+        public Socket Connect(string hostName, int port)
+        {
+            var endPoint = _endpointResolver.GetEndpoint(hostName, port);
+            var ipAddress = _endpointResolver.GetIp(hostName);
+            var socket = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+
             var connectionStateModel = new ConnectionStateHandler
             {
-                Socket = serverSocket,
+                Socket = socket,
                 IsConnectionSuccessful = false
             };
 
-            Console.WriteLine($" >> Connecting [{serverSocket.GetHashCode()}] to {endpoint}");
+            Console.WriteLine($" >> Connecting [{socket.GetHashCode()}] to {endPoint}");
 
-            serverSocket.BeginConnect(endpoint, ConnectCallback, connectionStateModel);
+            socket.BeginConnect(endPoint, ConnectCallback, connectionStateModel);
             _isConnectionMade.WaitOne();
 
-            return connectionStateModel.IsConnectionSuccessful;
+            return connectionStateModel.IsConnectionSuccessful ? socket : null;
         }
 
         private void ConnectCallback(IAsyncResult ar)

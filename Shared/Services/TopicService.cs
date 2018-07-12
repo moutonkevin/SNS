@@ -9,15 +9,15 @@ namespace Shared.Services
 {
     public class TopicService : ITopicManager
     {
-        private readonly ConcurrentDictionary<string, ConcurrentBag<TcpClient>> _topics =
-            new ConcurrentDictionary<string, ConcurrentBag<TcpClient>>();
+        private readonly ConcurrentDictionary<string, ConcurrentBag<Socket>> _topics =
+            new ConcurrentDictionary<string, ConcurrentBag<Socket>>();
 
-        public void AddClientToTopic(TcpClient client, string name)
+        public void AddClientToTopic(Socket client, string name)
         {
             if (_topics.ContainsKey(name))
                 _topics[name].Add(client);
             else
-                _topics.TryAdd(name, new ConcurrentBag<TcpClient> {client});
+                _topics.TryAdd(name, new ConcurrentBag<Socket> {client});
 
             Console.WriteLine($" >> Client {client.GetHashCode()} has been added to the topic {name}");
 
@@ -25,7 +25,7 @@ namespace Shared.Services
                 Console.WriteLine($"[{topic.Key}] => {string.Join(",", topic.Value.Select(s => s.GetHashCode()))}");
         }
 
-        public void RemoveClientFromTopic(TcpClient client, string name)
+        public void RemoveClientFromTopic(Socket client, string name)
         {
             if (_topics.ContainsKey(name))
             {
@@ -41,9 +41,9 @@ namespace Shared.Services
             }
         }
 
-        public IEnumerable<TcpClient> GetAllClientFromTopic(string name)
+        public IEnumerable<Socket> GetAllClientFromTopic(string name)
         {
-            return _topics.ContainsKey(name) ? _topics[name] : new ConcurrentBag<TcpClient>();
+            return _topics.ContainsKey(name) ? _topics[name] : new ConcurrentBag<Socket>();
         }
     }
 }

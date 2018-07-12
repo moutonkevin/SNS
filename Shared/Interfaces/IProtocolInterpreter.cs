@@ -4,6 +4,6 @@ namespace Shared.Interfaces
 {
     public interface IProtocolInterpreter
     {
-        void Interpret(TcpClient socket, MessageType messageType, string body);
+        void Interpret(Socket socket, MessageType messageType, string body);
     }
 }

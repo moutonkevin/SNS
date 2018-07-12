@@ -25,6 +25,7 @@ namespace Shared.Services
                 socketHandler);
 
             _isReadComplete.WaitOne();
+            _isReadComplete.Reset();
 
             return socketHandler.Content.ToString();
         }

@@ -7,21 +7,33 @@ namespace Client.Services
 {
     public class ListenerService : IListener
     {
+        private string _hostName;
+        private int _port;
         private string _topic;
         private Type _handler;
         private Socket _serverSocket;
 
-        private readonly IOperation _server;
         private readonly IProtocolSender _protocolSender;
         private readonly IProtocolReader _protocolReader;
-        private readonly IEndpointResolver _endpointResolver;
 
-        public ListenerService(IEndpointResolver endpointResolver, IOperation server, IProtocolSender protocolSender, IProtocolReader protocolReader)
+        public ListenerService(IProtocolSender protocolSender, IProtocolReader protocolReader)
         {
-            _endpointResolver = endpointResolver;
-            _server = server;
             _protocolSender = protocolSender;
             _protocolReader = protocolReader;
+        }
+
+        public IListener WithHostName(string hostName)
+        {
+            _hostName = hostName;
+
+            return this;
+        }
+
+        public IListener WithPort(int port)
+        {
+            _port = port;
+
+            return this;
         }
 
         public IListener Listen(string topicName)
@@ -40,28 +52,21 @@ namespace Client.Services
 
         public IListener Verify()
         {
-            const string hostName = "AU-SYD-IT-018";
-            const int port = 11000;
-
-            var serverEndpoint = _endpointResolver.GetEndpoint(hostName, port);
-            var ipAddress = _endpointResolver.GetIp(hostName);
-            var serverSocket = _server.CreateSocket(ipAddress);
-
-            var isConnectionSuccessful = _protocolSender.Connect(serverSocket, serverEndpoint);
-            if (!isConnectionSuccessful)
+            var socket = _protocolSender.Connect(_hostName, _port);
+            if (socket == null)
             {
                 //TODO
                 throw new InvalidOperationException("Could not connect to the server");
             }
 
-            var isSendTopicSuccessful = _protocolSender.Send(serverSocket, "Type=subscribe Body=this-is-the-queue-name<EOF>");
+            var isSendTopicSuccessful = _protocolSender.Send(socket, $"Type=subscribe Body={_topic}<EOF>");
             if (!isSendTopicSuccessful)
             {
                 //TODO
                 throw new InvalidOperationException("Could not subscribe to the topic");
             }
 
-            _serverSocket = serverSocket;
+            _serverSocket = socket;
 
             return this;
         }
@@ -71,7 +76,9 @@ namespace Client.Services
             while (true)
             {
                 var message = _protocolReader.Receive(_serverSocket);
-                
+
+                //todo
+                //instantiate class
             }
         }
     }

@@ -5,8 +5,8 @@ namespace Shared.Interfaces
 {
     public interface ITopicManager
     {
-        void AddClientToTopic(TcpClient client, string name);
-        void RemoveClientFromTopic(TcpClient client, string name);
-        IEnumerable<TcpClient> GetAllClientFromTopic(string name);
+        void AddClientToTopic(Socket client, string name);
+        void RemoveClientFromTopic(Socket client, string name);
+        IEnumerable<Socket> GetAllClientFromTopic(string name);
     }
 }

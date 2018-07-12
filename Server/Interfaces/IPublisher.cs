@@ -5,6 +5,6 @@ namespace Server.Interfaces
     internal interface IPublisher
     {
         void PublishEventToAll();
-        void PublishEvent(TcpClient client);
+        void PublishEvent(Socket client);
     }
 }

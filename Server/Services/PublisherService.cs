@@ -1,6 +1,4 @@
-﻿using System;
-using System.Net.Sockets;
-using System.Text;
+﻿using System.Net.Sockets;
 using Server.Interfaces;
 using Shared.Interfaces;
 
@@ -17,9 +15,9 @@ namespace Server.Services
             _protocolSender = protocolSender;
         }
 
-        public void PublishEvent(TcpClient client)
+        public void PublishEvent(Socket client)
         {
-            _protocolSender.Send(client.Client, "Server to client <EOF>");
+            _protocolSender.Send(client, "Server to client <EOF>");
         }
 
         public void PublishEventToAll()

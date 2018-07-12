@@ -4,6 +4,6 @@ namespace Server.Interfaces
 {
     internal interface IListener
     {
-        TcpClient WaitForClientToConnect(TcpListener listener);
+        Socket WaitForClientToConnect(TcpListener listener);
     }
 }

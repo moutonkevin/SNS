@@ -9,6 +9,7 @@ namespace Client
     {
         private static void Main(string[] args)
         {
+            //to let the time for the server to start
             Thread.Sleep(2000);
 
             IReadOnlyKernel kernel = new StandardKernel(new IocModule());
@@ -16,6 +17,8 @@ namespace Client
             var listener = kernel.Get<IListener>();
 
             listener
+                .WithHostName("AU-SYD-IT-018")
+                .WithPort(11000)
                 .Listen("queue-name-1")
                 .Handle<Queue1Handler>()
                 .Verify()

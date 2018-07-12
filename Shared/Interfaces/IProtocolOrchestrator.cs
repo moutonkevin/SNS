@@ -4,6 +4,6 @@ namespace Shared.Interfaces
 {
     public interface IProtocolOrchestrator
     {
-        bool Process(TcpClient socket, string message);
+        bool Process(Socket socket, string message);
     }
 }

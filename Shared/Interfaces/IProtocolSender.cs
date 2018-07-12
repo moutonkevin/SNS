@@ -5,7 +5,7 @@ namespace Shared.Interfaces
 {
     public interface IProtocolSender
     {
-        bool Connect(Socket serverSocket, IPEndPoint endpoint);
+        Socket Connect(string hostName, int port);
         bool Send(Socket serverSocket, string message);
     }
 }

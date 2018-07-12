@@ -5,8 +5,8 @@ namespace Shared.Interfaces
 {
     public interface IClientManager
     {
-        void RemoveClient(TcpClient client);
-        void AddClient(TcpClient client);
-        IEnumerable<TcpClient> GetAll();
+        void RemoveClient(Socket client);
+        void AddClient(Socket client);
+        IEnumerable<Socket> GetAll();
     }
 }

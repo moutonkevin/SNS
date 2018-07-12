@@ -14,7 +14,7 @@ namespace Shared.Services
             _protocolInterpreter = protocolInterpreter;
         }
 
-        public bool Process(TcpClient socket, string message)
+        public bool Process(Socket socket, string message)
         {
             var requestType = _protocolParser.GetMessageType(message);
             var body = _protocolParser.GetBody(message);
