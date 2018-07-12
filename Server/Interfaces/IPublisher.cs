@@ -2,7 +2,7 @@
 
 namespace Server.Interfaces
 {
-    public interface IPublisher
+    internal interface IPublisher
     {
         void PublishEventToAll();
         void PublishEvent(TcpClient client);

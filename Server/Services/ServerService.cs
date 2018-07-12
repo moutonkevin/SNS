@@ -2,41 +2,23 @@
 using System.Net;
 using System.Net.Sockets;
 using Server.Interfaces;
+using Shared.Interfaces;
 
 namespace Server.Services
 {
-    public class ServerService : IServer
+    internal class ServerService : IServer
     {
         private readonly IListener _listener;
-        private readonly IPublisher _publisher;
         private readonly IProtocolReader _protocolReader;
+        private readonly IPublisher _publisher;
+        private readonly IProtocolOrchestrator _protocolOrchestrator;
 
-        public ServerService(IListener listener, IPublisher publisher, IProtocolReader protocolReader)
+        public ServerService(IListener listener, IPublisher publisher, IProtocolReader protocolReader, IProtocolOrchestrator protocolOrchestrator)
         {
             _listener = listener;
             _publisher = publisher;
             _protocolReader = protocolReader;
-        }
-
-        public IPEndPoint GetLocalEndpoint()
-        {
-            var server = Dns.GetHostName();
-            const int port = 11000;
-
-            var ipHostInfo = Dns.GetHostEntry(server);
-            var ipAddress = ipHostInfo.AddressList[0];
-            var localEndPoint = new IPEndPoint(ipAddress, port);
-
-            return localEndPoint;
-        }
-
-        public IPEndPoint GetEndpoint(string address, int port)
-        {
-            var ipHostInfo = Dns.GetHostEntry(address);
-            var ipAddress = ipHostInfo.AddressList[0];
-            var localEndPoint = new IPEndPoint(ipAddress, port);
-
-            return localEndPoint;
+            _protocolOrchestrator = protocolOrchestrator;
         }
 
         public void Start(IPEndPoint endpoint)
@@ -50,7 +32,8 @@ namespace Server.Services
             {
                 var client = _listener.WaitForClientToConnect(serverSocket);
 
-                _protocolReader.ReadAllBytes(client);
+                var message = _protocolReader.ReadAll(client.Client);
+                _protocolOrchestrator.Process(client, message);
 
                 //Task.Run(() => { _publisher.PublishEventToAll(); });
             }

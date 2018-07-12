@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net.Sockets;
 using Server.Interfaces;
+using Shared.Interfaces;
 
 namespace Server.Services
 {

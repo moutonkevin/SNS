@@ -1,8 +1,10 @@
 ﻿using Ninject.Modules;
 using Server.Interfaces;
 using Server.Services;
+using Shared.Interfaces;
+using Shared.Services;
 
-namespace TestServer
+namespace Server
 {
     public class IocModule : NinjectModule
     {
@@ -11,6 +13,7 @@ namespace TestServer
             Bind<IClientManager>().To<ClientManagerService>().InSingletonScope();
             Bind<ITopicManager>().To<TopicService>().InSingletonScope();
 
+            Bind<IEndpointResolver>().To<EndpointResolver>();
             Bind<IListener>().To<ListenerService>();
             Bind<IProtocolInterpreter>().To<ProtocolInterpreterService>();
             Bind<IProtocolOrchestrator>().To<ProtocolOrchestratorService>();

@@ -2,6 +2,7 @@
 using System.Net.Sockets;
 using System.Text;
 using Server.Interfaces;
+using Shared.Interfaces;
 
 namespace Server.Services
 {
@@ -36,10 +37,7 @@ namespace Server.Services
 
         public void PublishEventToAll()
         {
-            foreach (var tcpClient in _clientManager.GetAll())
-            {
-                PublishEvent(tcpClient);
-            }
+            foreach (var tcpClient in _clientManager.GetAll()) PublishEvent(tcpClient);
         }
     }
 }

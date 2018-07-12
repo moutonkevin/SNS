@@ -2,7 +2,7 @@
 
 namespace Server.Interfaces
 {
-    public interface IListener
+    internal interface IListener
     {
         TcpClient WaitForClientToConnect(TcpListener listener);
     }

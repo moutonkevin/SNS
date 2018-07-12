@@ -1,20 +1,18 @@
-﻿using System.Runtime.InteropServices;
-using Ninject;
-using Server.Services;
-using Ninject.Modules;
+﻿using Ninject;
 using Server.Interfaces;
-using TestServer;
+using Shared.Interfaces;
 
 namespace Server
 {
     public class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             IReadOnlyKernel kernel = new StandardKernel(new IocModule());
+
+            var endpoint = kernel.Get<IEndpointResolver>().GetLocalEndpoint();
             var server = kernel.Get<IServer>();
 
-            var endpoint = server.GetLocalEndpoint();
             server.Start(endpoint);
         }
     }

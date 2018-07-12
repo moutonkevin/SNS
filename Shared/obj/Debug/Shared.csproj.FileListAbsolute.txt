@@ -1,0 +1,4 @@
+C:\gitkevin\SNS\Shared\bin\Debug\Shared.dll
+C:\gitkevin\SNS\Shared\bin\Debug\Shared.pdb
+C:\gitkevin\SNS\Shared\obj\Debug\Shared.dll
+C:\gitkevin\SNS\Shared\obj\Debug\Shared.pdb
