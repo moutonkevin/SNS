@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Net.Sockets;
 using System.Text;
-using TestServer.Interfaces;
-using TestServer.Models;
+using Server.Interfaces;
+using Server.Models;
 
-namespace TestServer.Services
+namespace Server.Services
 {
     public class ProtocolReaderService : IProtocolReader
     {

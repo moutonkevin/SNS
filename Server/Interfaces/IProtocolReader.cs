@@ -1,7 +1,6 @@
-﻿using System;
-using System.Net.Sockets;
+﻿using System.Net.Sockets;
 
-namespace TestServer.Interfaces
+namespace Server.Interfaces
 {
     public interface IProtocolReader
     {

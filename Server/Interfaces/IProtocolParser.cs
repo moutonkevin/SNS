@@ -1,8 +1,9 @@
-﻿namespace TestServer.Interfaces
+﻿namespace Server.Interfaces
 {
     public enum MessageType
     {
         Subscribe,
+        Unsubscribe,
         Publish,
         Unknown
     }

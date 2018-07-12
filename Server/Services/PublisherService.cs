@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Net.Sockets;
 using System.Text;
-using TestServer.Interfaces;
+using Server.Interfaces;
 
-namespace TestServer.Services
+namespace Server.Services
 {
     public class PublisherService : IPublisher
     {

@@ -1,6 +1,6 @@
 ﻿using System.Net.Sockets;
 
-namespace TestServer.Interfaces
+namespace Server.Interfaces
 {
     public interface IListener
     {

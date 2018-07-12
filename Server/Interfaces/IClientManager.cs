@@ -1,8 +1,7 @@
-﻿using System.Collections.Concurrent;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net.Sockets;
 
-namespace TestServer.Interfaces
+namespace Server.Interfaces
 {
     public interface IClientManager
     {

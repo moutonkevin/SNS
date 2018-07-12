@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Text.RegularExpressions;
-using TestServer.Interfaces;
+using Server.Interfaces;
 
-namespace TestServer.Services
+namespace Server.Services
 {
     public class ProtocolParserService : IProtocolParser
     {
@@ -18,13 +18,11 @@ namespace TestServer.Services
 
         public string GetBody(string message)
         {
-            var pattern = new Regex("Body=([a-zA-Z0-9\\s\\t]+)");
+            var pattern = new Regex("Body=([a-zA-Z0-9\\s\\t-]+)");
             var match = pattern.Match(message);
             var body = match.Groups[1].Value;
 
             return body;
         }
-
-
     }
 }

@@ -2,7 +2,7 @@
 using System.Net.Sockets;
 using System.Text;
 
-namespace TestServer.Models
+namespace Server.Models
 {
     public class SocketStateHandler
     {

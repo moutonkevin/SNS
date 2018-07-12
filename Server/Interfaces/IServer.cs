@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace TestServer.Interfaces
+namespace Server.Interfaces
 {
     public interface IServer
     {

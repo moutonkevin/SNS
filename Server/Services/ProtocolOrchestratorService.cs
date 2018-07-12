@@ -1,7 +1,7 @@
 ﻿using System.Net.Sockets;
-using TestServer.Interfaces;
+using Server.Interfaces;
 
-namespace TestServer.Services
+namespace Server.Services
 {
     public class ProtocolOrchestratorService : IProtocolOrchestrator
     {

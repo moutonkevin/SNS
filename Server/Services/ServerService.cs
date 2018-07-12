@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Net;
 using System.Net.Sockets;
-using System.Threading.Tasks;
-using TestServer.Interfaces;
+using Server.Interfaces;
 
-namespace TestServer.Services
+namespace Server.Services
 {
     public class ServerService : IServer
     {
@@ -12,15 +11,11 @@ namespace TestServer.Services
         private readonly IPublisher _publisher;
         private readonly IProtocolReader _protocolReader;
 
-        public ServerService()
+        public ServerService(IListener listener, IPublisher publisher, IProtocolReader protocolReader)
         {
-            IClientManager clientManager = new ClientManagerService();
-            _listener = new ListenerService(clientManager);
-            _publisher = new PublisherService(clientManager);
-            IProtocolInterpreter protocolInterpreter = new ProtocolInterpreterService(clientManager);
-            IProtocolParser protocolParser = new ProtocolParserService();
-            IProtocolOrchestrator protocolOrchestrator = new ProtocolOrchestratorService(protocolParser, protocolInterpreter);
-            _protocolReader = new ProtocolReaderService(protocolOrchestrator);
+            _listener = listener;
+            _publisher = publisher;
+            _protocolReader = protocolReader;
         }
 
         public IPEndPoint GetLocalEndpoint()
@@ -57,7 +52,7 @@ namespace TestServer.Services
 
                 _protocolReader.ReadAllBytes(client);
 
-                Task.Run(() => { _publisher.PublishEventToAll(); });
+                //Task.Run(() => { _publisher.PublishEventToAll(); });
             }
         }
     }
