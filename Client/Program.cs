@@ -1,14 +1,18 @@
-﻿using Client.Interfaces;
+﻿using System.Threading;
+using Client.Interfaces;
 using Client.Services;
 using Ninject;
 
 namespace Client
 {
-    public class Class1
+    public class Program
     {
-        public void Test()
+        private static void Main(string[] args)
         {
+            Thread.Sleep(2000);
+
             IReadOnlyKernel kernel = new StandardKernel(new IocModule());
+
             var listener = kernel.Get<IListener>();
 
             listener

@@ -46,8 +46,11 @@
     <Compile Include="Interfaces\IProtocolOrchestrator.cs" />
     <Compile Include="Interfaces\IProtocolParser.cs" />
     <Compile Include="Interfaces\IProtocolReader.cs" />
+    <Compile Include="Interfaces\IProtocolSender.cs" />
     <Compile Include="Interfaces\ITopicManager.cs" />
+    <Compile Include="Models\ConnectionStateHandler.cs" />
     <Compile Include="Models\ReadStateHandler.cs" />
+    <Compile Include="Models\SendStatehandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ClientManagerService.cs" />
     <Compile Include="Services\EndpointResolver.cs" />
@@ -55,6 +58,7 @@
     <Compile Include="Services\ProtocolOrchestratorService.cs" />
     <Compile Include="Services\ProtocolParserService.cs" />
     <Compile Include="Services\ProtocolReaderService.cs" />
+    <Compile Include="Services\ProtocolSenderService.cs" />
     <Compile Include="Services\TopicService.cs" />
   </ItemGroup>
   <ItemGroup />

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.Net.Sockets;
+using System.Threading.Tasks;
 using Server.Interfaces;
 using Shared.Interfaces;
 
@@ -32,10 +33,10 @@ namespace Server.Services
             {
                 var client = _listener.WaitForClientToConnect(serverSocket);
 
-                var message = _protocolReader.ReadAll(client.Client);
+                var message = _protocolReader.Receive(client.Client);
                 _protocolOrchestrator.Process(client, message);
 
-                //Task.Run(() => { _publisher.PublishEventToAll(); });
+                Task.Run(() => { _publisher.PublishEventToAll(); });
             }
         }
     }

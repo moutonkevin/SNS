@@ -2,7 +2,6 @@
 using System.Net.Sockets;
 using Client.Interfaces;
 using Shared.Interfaces;
-using Shared.Models;
 
 namespace Client.Services
 {
@@ -12,14 +11,17 @@ namespace Client.Services
         private Type _handler;
         private Socket _serverSocket;
 
-        private readonly IRemote _server;
-
+        private readonly IOperation _server;
+        private readonly IProtocolSender _protocolSender;
+        private readonly IProtocolReader _protocolReader;
         private readonly IEndpointResolver _endpointResolver;
 
-        public ListenerService(IEndpointResolver endpointResolver, IRemote server)
+        public ListenerService(IEndpointResolver endpointResolver, IOperation server, IProtocolSender protocolSender, IProtocolReader protocolReader)
         {
             _endpointResolver = endpointResolver;
             _server = server;
+            _protocolSender = protocolSender;
+            _protocolReader = protocolReader;
         }
 
         public IListener Listen(string topicName)
@@ -45,12 +47,18 @@ namespace Client.Services
             var ipAddress = _endpointResolver.GetIp(hostName);
             var serverSocket = _server.CreateSocket(ipAddress);
 
-            var isConnectionSuccessful = _server.Connect(serverSocket, serverEndpoint);
-
+            var isConnectionSuccessful = _protocolSender.Connect(serverSocket, serverEndpoint);
             if (!isConnectionSuccessful)
             {
                 //TODO
                 throw new InvalidOperationException("Could not connect to the server");
+            }
+
+            var isSendTopicSuccessful = _protocolSender.Send(serverSocket, "Type=subscribe Body=this-is-the-queue-name<EOF>");
+            if (!isSendTopicSuccessful)
+            {
+                //TODO
+                throw new InvalidOperationException("Could not subscribe to the topic");
             }
 
             _serverSocket = serverSocket;
@@ -60,12 +68,9 @@ namespace Client.Services
 
         public void StartListening()
         {
-
-
             while (true)
             {
-                _server.Receive(_serverSocket);
-
+                var message = _protocolReader.Receive(_serverSocket);
                 
             }
         }

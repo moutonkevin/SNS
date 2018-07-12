@@ -9,30 +9,17 @@ namespace Server.Services
     public class PublisherService : IPublisher
     {
         private readonly IClientManager _clientManager;
+        private readonly IProtocolSender _protocolSender;
 
-        public PublisherService(IClientManager clientManager)
+        public PublisherService(IClientManager clientManager, IProtocolSender protocolSender)
         {
             _clientManager = clientManager;
+            _protocolSender = protocolSender;
         }
 
         public void PublishEvent(TcpClient client)
         {
-            try
-            {
-                var networkStream = client.GetStream();
-
-                var sendBytes = Encoding.ASCII.GetBytes("Server to client <EOF>");
-                networkStream.Write(sendBytes, 0, sendBytes.Length);
-                networkStream.Flush();
-
-                Console.WriteLine($" >> Message sent to client {client.GetHashCode()}");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($" >> Could not sent to client {client.GetHashCode()}");
-
-                _clientManager.RemoveClient(client);
-            }
+            _protocolSender.Send(client.Client, "Server to client <EOF>");
         }
 
         public void PublishEventToAll()

@@ -13,7 +13,12 @@ namespace Shared.Services
             var type = match.Groups[1].Value;
 
             MessageType typeEnum;
-            return Enum.TryParse(type, true, out typeEnum) ? typeEnum : MessageType.Unknown;
+
+            var isSucess = Enum.TryParse(type, true, out typeEnum);
+
+            Console.WriteLine($" >> The message type received is [{typeEnum.ToString()}]");
+
+            return isSucess ? typeEnum : MessageType.Unknown;
         }
 
         public string GetBody(string message)
@@ -21,6 +26,8 @@ namespace Shared.Services
             var pattern = new Regex("Body=([a-zA-Z0-9\\s\\t-]+)");
             var match = pattern.Match(message);
             var body = match.Groups[1].Value;
+
+            Console.WriteLine($" >> The message body received is [{body}]");
 
             return body;
         }

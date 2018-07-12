@@ -4,6 +4,6 @@ namespace Shared.Interfaces
 {
     public interface IProtocolReader
     {
-        string ReadAll(Socket socket);
+        string Receive(Socket socket);
     }
 }

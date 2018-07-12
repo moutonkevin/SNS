@@ -1,6 +1,6 @@
 ﻿using System.Net.Sockets;
 
-namespace Client.Models
+namespace Shared.Models
 {
     public class ConnectionStateHandler
     {

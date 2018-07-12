@@ -3,10 +3,8 @@ using System.Net.Sockets;
 
 namespace Client.Interfaces
 {
-    public interface IRemote
+    public interface IOperation
     {
         Socket CreateSocket(IPAddress ipAddress);
-        bool Connect(Socket serverSocket, IPEndPoint endpoint);
-        void Receive(Socket serverSocket);
     }
 }

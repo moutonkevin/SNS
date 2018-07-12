@@ -1,9 +1,9 @@
 C:\gitkevin\SNS\Client\obj\Debug\Client.csprojResolveAssemblyReference.cache
-C:\gitkevin\SNS\Client\bin\Debug\Client.dll
 C:\gitkevin\SNS\Client\bin\Debug\Client.pdb
 C:\gitkevin\SNS\Client\bin\Debug\Ninject.dll
 C:\gitkevin\SNS\Client\bin\Debug\Shared.dll
 C:\gitkevin\SNS\Client\bin\Debug\Shared.pdb
 C:\gitkevin\SNS\Client\bin\Debug\Ninject.xml
-C:\gitkevin\SNS\Client\obj\Debug\Client.dll
 C:\gitkevin\SNS\Client\obj\Debug\Client.pdb
+C:\gitkevin\SNS\Client\bin\Debug\Client.exe
+C:\gitkevin\SNS\Client\obj\Debug\Client.exe

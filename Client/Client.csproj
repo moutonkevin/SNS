@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{13266772-49FF-4256-822A-39223ACB95BD}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Client</RootNamespace>
     <AssemblyName>Client</AssemblyName>
@@ -29,6 +29,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>Client.Program</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Ninject, Version=4.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\packages\Ninject.4.0.0-beta-0134\lib\net45\Ninject.dll</HintPath>
@@ -44,16 +47,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Interfaces\IHandler.cs" />
     <Compile Include="Interfaces\IListener.cs" />
-    <Compile Include="Interfaces\IRemote.cs" />
+    <Compile Include="Interfaces\IOperation.cs" />
     <Compile Include="IocModule.cs" />
-    <Compile Include="Models\ConnectionStateHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Queue1Handler.cs" />
     <Compile Include="Services\ListenerService.cs" />
-    <Compile Include="Services\Remote.cs" />
+    <Compile Include="Services\OperationService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -63,6 +65,9 @@
       <Project>{C3BA13E0-DC9D-4F66-9DC7-112004276A72}</Project>
       <Name>Shared</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

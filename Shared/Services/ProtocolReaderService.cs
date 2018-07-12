@@ -11,12 +11,14 @@ namespace Shared.Services
     {
         private readonly ManualResetEvent _isReadComplete = new ManualResetEvent(false);
 
-        public string ReadAll(Socket socket)
+        public string Receive(Socket socket)
         {
             var socketHandler = new ReadStateHandler
             {
                 Socket = socket,
             };
+
+            Console.WriteLine($" >> Receiving for {socket.GetHashCode()}");
 
             socket.BeginReceive(socketHandler.Buffer, 0, 
                 socketHandler.BufferSize, 0, ReadCallback,
@@ -30,7 +32,7 @@ namespace Shared.Services
         private void ReadCallback(IAsyncResult ar)
         {
             var state = (ReadStateHandler) ar.AsyncState;
-            var handler = state.TcpClient.Client;
+            var handler = state.Socket;
             var bytesRead = handler.EndReceive(ar);
 
             if (bytesRead > 0)
@@ -40,7 +42,7 @@ namespace Shared.Services
                 var content = state.Content.ToString();
                 if (content.IndexOf("<EOF>", StringComparison.Ordinal) > -1)
                 {
-                    Console.WriteLine($" >> Read {content.Length} bytes from socket: [{content}]");
+                    Console.WriteLine($" >> Received [{content}] from [{handler.GetHashCode()}]");
 
                     state.Content = state.Content.Replace("<EOF>", "");
 
